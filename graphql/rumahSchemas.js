@@ -114,6 +114,22 @@ var rumahType = new GraphQLObjectType({
               return kel
             }
         },
+        kec: {
+            type: new GraphQLList(rumahType),
+            
+            resolve: function () {
+              const kec = RumahModel.findAll({
+                where: {kecamatan: "Cimanggis"},
+                order: [
+                  ['id', 'DESC']
+                ],
+              })
+              if (!kec) {
+                throw new Error('Error')
+              }
+              return kec
+            }
+        },
         rumah: {
             type: rumahType,
             args: {

@@ -12,7 +12,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:3000/graphql'

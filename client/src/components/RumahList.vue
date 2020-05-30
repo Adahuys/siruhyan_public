@@ -5,11 +5,12 @@
         Rumah List
         <b-link href="#/add-Rumah">(Add Rumah)</b-link>
       </h2>
-      <b-table striped hover :items="rumahs" :fields="fields">
+      <button v-on:click="greet">Greet</button>
+      <!-- <b-table striped hover :items="rumahs" :fields="fields">
         <template slot="actions" scope="row">
           <b-btn size="sm" @click.stop="details(row.item)">Details</b-btn>
         </template>
-      </b-table>
+      </b-table> -->
     </b-col>
   </b-row>
 </template>
@@ -19,9 +20,9 @@
     import router from "../router";
 
     const GET_RUMAHS = gql`
-  {
-    rumahs {
-      id,
+  { 
+  kec {
+    id,
     alamat,
     jamban,
     kordinat,
@@ -41,16 +42,16 @@
     koordinat_kecamatan,
     kelurahan,
     koordinat_kelurahan
-    }
   }
+}
 `;
 
 export default {
   name: "RumahList",
   apollo: {
-    rumahs: {
+    kec: {
       query: GET_RUMAHS,
-      pollInterval: 300
+      pollInterval: 5000
     }
   },
   data() {
@@ -79,13 +80,21 @@ export default {
         
         actions: { label: "Action", class: "text-center" }
       },
-      rumahs: []
+      kec: []
     };
   },
   methods: {
     details(rumah) {
       router.push({ name: "ShowRumah", params: { id: rumah.id } });
-    }
+    },
+    greet: function (event) {
+      if (event) {
+        console.log("mounteds",this.kec);
+      }
+    },
+  },
+  mounted: function () {
+  console.log("mounteds",this.kec);
   }
 };
 </script>
