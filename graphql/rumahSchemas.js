@@ -98,6 +98,22 @@ var rumahType = new GraphQLObjectType({
             return rumahs
           }
         },
+        kel: {
+            type: new GraphQLList(rumahType),
+            args: {kelurahan: {name: 'kelurahan',type: GraphQLString}},
+            resolve: function (root, params) {
+              const kel = RumahModel.findAll({
+                where: {kelurahan: params.kelurahan},
+                order: [
+                  ['id', 'DESC']
+                ],
+              })
+              if (!kel) {
+                throw new Error('Error')
+              }
+              return kel
+            }
+        },
         rumah: {
             type: rumahType,
             args: {
@@ -107,7 +123,7 @@ var rumahType = new GraphQLObjectType({
               }
             },
             resolve: function (root, params) {
-              const rumahDetails = RumahModel.findByPk(params.id).exec()
+              const rumahDetails = RumahModel.findByPk(params.id)
               if (!rumahDetails) {
                 throw new Error('Error')
               }
