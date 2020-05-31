@@ -19,9 +19,36 @@
     import gql from "graphql-tag";
     import router from "../router";
 
-    const GET_RUMAHS = gql`
+//     const GET_RUMAHS = gql`
+//   { 
+//   rumahs {
+//     id,
+//     alamat,
+//     jamban,
+//     kordinat,
+//     no_rumah,
+//     rt,
+//     rw,
+//     sampa,
+//     spal,
+//     status,
+//     kepemilikan,
+//     created_at,
+//     no_telp,
+//     nilai,
+//     total_nilai,
+//     petugas,
+//     kecamatan,
+//     koordinat_kecamatan,
+//     kelurahan,
+//     koordinat_kelurahan
+//   }
+// }
+// `;
+
+const GET_OTHER = gql`
   { 
-  kec {
+  rumahs {
     id,
     alamat,
     jamban,
@@ -29,12 +56,8 @@
     no_rumah,
     rt,
     rw,
-    sampa,
-    spal,
     status,
     kepemilikan,
-    created_at,
-    no_telp,
     nilai,
     total_nilai,
     petugas,
@@ -49,8 +72,8 @@
 export default {
   name: "RumahList",
   apollo: {
-    kec: {
-      query: GET_RUMAHS,
+    rumahs: {
+      query: GET_OTHER,
       pollInterval: 5000
     }
   },
@@ -80,7 +103,8 @@ export default {
         
         actions: { label: "Action", class: "text-center" }
       },
-      kec: []
+      rumahs: [],
+      other: []
     };
   },
   methods: {
@@ -89,12 +113,12 @@ export default {
     },
     greet: function (event) {
       if (event) {
-        console.log("mounteds",this.kec);
+        console.log("mounteds",this.rumahs);
       }
     },
   },
   mounted: function () {
-  console.log("mounteds",this.kec);
+  console.log("mounteds",this.other);
   }
 };
 </script>

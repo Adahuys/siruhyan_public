@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/RumahList.vue'
+import HelloWorld from './components/Map.vue'
 
 export default {
   name: 'App',
