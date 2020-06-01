@@ -1,6 +1,5 @@
 <template>
   <div id="about">
-  When you have a great story about how your product or service was built to change lives, share it. The "About Us" page is a great place for it to live, too. Good stories humanize your brand, providing context and meaning for your product. What’s more, good stories are sticky -- which means people are more likely to connect with them and pass them on.
   <button v-on:click="getPoly">Polygones</button>
   <div id="map" ref="map">
       <!-- <map-marker :lat="-27.344" :lng="133.036"></map-marker>
