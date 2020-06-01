@@ -12,17 +12,54 @@
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhwmRyn2gXpj8U4yCbmj8ZHSi3tYQJOiE">
 </script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhwmRyn2gXpj8U4yCbmj8ZHSi3tYQJOiE&libraries=visualization">
+</script>
 <script>
 import initPolygon from "./initPolygon.js";
+import gql from "graphql-tag";
+import router from "../router";
 // import kel1 from "./components/AddRumah.vue";
+
+const GET_OTHER = gql`
+  { 
+  rumahs {
+    id,
+    alamat,
+    jamban,
+    kordinat,
+    no_rumah,
+    rt,
+    rw,
+    status,
+    kepemilikan,
+    nilai,
+    total_nilai,
+    petugas,
+    kecamatan,
+    koordinat_kecamatan,
+    kelurahan,
+    koordinat_kelurahan
+  }
+}
+`;
+
 export default {
   name: 'Map',
+  apollo: {
+    rumahs: {
+      query: GET_OTHER,
+      pollInterval: 5000
+    }
+  },
   data: () => ({
       map: null
       ,
-      boundary: null,
+      boundary: [],
       poly: null,
-      polyData: initPolygon
+      polyData: initPolygon,
+      heatMapData: [],
+      rumahs: []
   }),
   mounted(){
     //   this.map = new window.google.maps.Map(this.$refs["map"],{
@@ -47,8 +84,9 @@ export default {
       ,
       getPoly: function(event){
         if (event){
-            this.boundary = this.polyData.kel1.data;
-            console.log(this.boundary);
+            // this.boundary[0] = this.polyData.kel1.data;
+            // this.boundary[1] = this.polyData.kel2.data;
+            console.log(this.rumahs[400].kordinat);
 
         //     this.poly = new google.maps.Polygon({
         //     paths: this.boundary,
@@ -64,7 +102,26 @@ export default {
             center: {lat: -25.344, lng: 131.036},
             zoom: 4
         });
-        this.map.data.add({geometry: new window.google.maps.Data.Polygon([this.boundary])})
+
+        var data1 = new window.google.maps.Polygon({
+            paths: this.polyData.kel1.data,
+            fillColor: 'green',
+            map: this.map
+        });
+        // var poly1 = data1;
+        // poly1.setVisible(false);
+        // const data1 = new window.google.maps.Data({geometry: new window.google.maps.Data.Polygon([this.polyData.kel1.data])});
+        // const data2 = new window.google.maps.Data({geometry: new window.google.maps.Data.Polygon([this.polyData.kel2.data])});
+        // this.map.data.add({geometry: new window.google.maps.Data.Polygon([this.boundary])})
+        // this.map.data.add(data1);
+        // this.map.data.setStyle({
+        //     data: data1,
+        //     fillColor:'green'
+        // })
+        // this.map.data.setStyle({
+        //     data: data2,
+        //     fillColor:'red'
+        // })
         new window.google.maps.Marker({
             position: {lat: -25.344, lng: 131.036},
             map: this.map
