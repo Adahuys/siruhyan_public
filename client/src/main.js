@@ -11,13 +11,25 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import IconsPlugin from 'bootstrap-vue'
+
+import RumahFormVue from './components/RumahForm.vue'
+import MapVue from './components/Map.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueFormWizard)
+
+const routes =[
+  { path: '/form', components: RumahFormVue},
+  { path: '/map', components: MapVue}
+]
+const routers = new VueRouter({
+  routes,
+  mode: 'history'
+})
 
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -34,5 +46,6 @@ Vue.use(VueApollo);
 new Vue({
   apolloProvider,
   router,
+  routers,
   render: h => h(App)
 }).$mount('#app')

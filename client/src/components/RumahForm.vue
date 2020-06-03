@@ -1,15 +1,17 @@
 <template>
   <form-wizard @on-complete="onComplete">
      <tab-content title="Komponen Rumah">
-        <b-form-group label="1. Langit - langit">
+        <b-form-group label="1. Langit - langit" label-class="font-weight-bold" label-size="lg"> 
             <b-form-radio-group
-                v-model="selected"
+                v-model="selected1"
                 :options="options1"
                 name="radios-stacked"
                 stacked
             ></b-form-radio-group>
-        </b-form-group><br>
-        <b-form-group label="2. Dinding">
+        </b-form-group>
+        <!-- <div class="mt-3">Selected: <strong>{{ selected1 }}</strong></div> -->
+        <br>
+        <b-form-group label="2. Dinding" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options2"
@@ -17,7 +19,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="3. Lantai">
+        <b-form-group label="3. Lantai" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options3"
@@ -25,7 +27,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="4. Jendela Kamar Tidur">
+        <b-form-group label="4. Jendela Kamar Tidur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options4"
@@ -33,7 +35,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="5. Jendela Ruang Keluarga">
+        <b-form-group label="5. Jendela Ruang Keluarga" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options5"
@@ -41,7 +43,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="6. Ventilasi">
+        <b-form-group label="6. Ventilasi" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options6"
@@ -49,7 +51,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="7. Lubang Asap Dapur">
+        <b-form-group label="7. Lubang Asap Dapur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options7"
@@ -57,7 +59,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="8. Pencahayan">
+        <b-form-group label="8. Pencahayan" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options8"
@@ -67,7 +69,7 @@
         </b-form-group><br>
      </tab-content>
      <tab-content title="Sarana Sanitasi">
-         <b-form-group label="1. Sarana Air Bersih">
+         <b-form-group label="1. Sarana Air Bersih" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options9"
@@ -75,7 +77,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="2. Jamban (Sarana Pembuangan Kotoran)">
+        <b-form-group label="2. Jamban (Sarana Pembuangan Kotoran)" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options10"
@@ -83,7 +85,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="3. Sarana Pembuangan Air Limbah (SPAL)">
+        <b-form-group label="3. Sarana Pembuangan Air Limbah (SPAL)" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options11"
@@ -91,7 +93,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="4. Sarana Pembuangan Sampah / Tempat Sampah">
+        <b-form-group label="4. Sarana Pembuangan Sampah / Tempat Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options12"
@@ -101,7 +103,7 @@
         </b-form-group><br>
      </tab-content>
      <tab-content title="Perilaku Peghuni">
-       <b-form-group label="1. Membuka Jendela Kamar Tidur">
+       <b-form-group label="1. Membuka Jendela Kamar Tidur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options13"
@@ -109,7 +111,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="2. Membuka Jendela Ruang Keluarga">
+        <b-form-group label="2. Membuka Jendela Ruang Keluarga" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options14"
@@ -117,7 +119,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="3. Membersihkan Rumah dan Halaman">
+        <b-form-group label="3. Membersihkan Rumah dan Halaman" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options15"
@@ -125,7 +127,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="4. Membuang Tinja Bayi dan Balita">
+        <b-form-group label="4. Membuang Tinja Bayi dan Balita" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options16"
@@ -133,7 +135,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="5. Membuang Sampah">
+        <b-form-group label="5. Membuang Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options17"
@@ -143,7 +145,7 @@
         </b-form-group><br>
      </tab-content>
      <tab-content title="Informasi Tambahan">
-         <b-form-group label="Penanganan Sampah">
+         <b-form-group label="Penanganan Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options18"
@@ -151,7 +153,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="Terdapat Jentik Nyamuk">
+        <b-form-group label="Terdapat Jentik Nyamuk" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options19"
@@ -159,7 +161,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="Jenis Jamban yang Digunakan">
+        <b-form-group label="Jenis Jamban yang Digunakan" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options20"
@@ -167,7 +169,7 @@
                 stacked
             ></b-form-radio-group>
         </b-form-group><br>
-        <b-form-group label="Jenis Sistem Pembuangan Air Limbah">
+        <b-form-group label="Jenis Sistem Pembuangan Air Limbah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
                 v-model="selected"
                 :options="options21"
@@ -183,6 +185,7 @@
 <script>
   export default {
     data(){ return {
+        selected1: 0,
         options1: [
           { text: 'Tidak ada', value: 0 },
           { text: 'Ada, kotor, sulit dibersihkan dan rawan kecelakaan', value: 31 },
@@ -292,10 +295,15 @@
           { text: 'Terbuka', value: '1' }
         ],
     }},
-     methods: {
-      onComplete: function(){
+    mounted: function (){
+    },
+    methods: {
+        onComplete: function(){
           alert('Yay. Done!');
-       }
-      }
+        }
+    }
   }
 </script>
+<style scoped>
+
+</style>
