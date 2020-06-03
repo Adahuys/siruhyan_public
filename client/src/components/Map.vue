@@ -101,7 +101,7 @@ export default {
             center: {lat: -25.344, lng: 131.036},
             zoom: 4
         });
-
+        
         var data1 = new window.google.maps.Polygon({
             paths: this.polyData.kel1.data,
             fillColor: 'green',
@@ -139,7 +139,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 #map{
     height: 600px;

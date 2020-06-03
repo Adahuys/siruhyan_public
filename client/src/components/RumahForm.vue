@@ -1,180 +1,202 @@
 <template>
-  <form-wizard @on-complete="onComplete">
+  <form-wizard @on-complete="onComplete" color="#3498db">
+      <h2 slot="title">Form Penilaian Rumah Layak Huni</h2>
      <tab-content title="Komponen Rumah">
         <b-form-group label="1. Langit - langit" label-class="font-weight-bold" label-size="lg"> 
             <b-form-radio-group
-                v-model="selected1"
+                v-model="s1"
                 :options="options1"
-                name="radios-stacked"
+                name="s1"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group>
         <!-- <div class="mt-3">Selected: <strong>{{ selected1 }}</strong></div> -->
         <br>
         <b-form-group label="2. Dinding" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s2"
                 :options="options2"
-                name="radios-stacked"
+                name="s2"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="3. Lantai" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s3"
                 :options="options3"
-                name="radios-stacked"
+                name="s3"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="4. Jendela Kamar Tidur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s4"
                 :options="options4"
-                name="radios-stacked"
+                name="s4"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="5. Jendela Ruang Keluarga" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s5"
                 :options="options5"
-                name="radios-stacked"
+                name="s5"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="6. Ventilasi" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s6"
                 :options="options6"
-                name="radios-stacked"
+                name="s6"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="7. Lubang Asap Dapur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s7"
                 :options="options7"
-                name="radios-stacked"
+                name="s7"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="8. Pencahayan" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s8"
                 :options="options8"
-                name="radios-stacked"
+                name="s8"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
      </tab-content>
      <tab-content title="Sarana Sanitasi">
          <b-form-group label="1. Sarana Air Bersih" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s9"
                 :options="options9"
-                name="radios-stacked"
+                name="s9"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="2. Jamban (Sarana Pembuangan Kotoran)" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s10"
                 :options="options10"
-                name="radios-stacked"
+                name="s10"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="3. Sarana Pembuangan Air Limbah (SPAL)" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s11"
                 :options="options11"
-                name="radios-stacked"
+                name="s11"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="4. Sarana Pembuangan Sampah / Tempat Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s12"
                 :options="options12"
-                name="radios-stacked"
+                name="s12"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
      </tab-content>
      <tab-content title="Perilaku Peghuni">
        <b-form-group label="1. Membuka Jendela Kamar Tidur" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s13"
                 :options="options13"
-                name="radios-stacked"
+                name="s13"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="2. Membuka Jendela Ruang Keluarga" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s14"
                 :options="options14"
-                name="radios-stacked"
+                name="s14"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="3. Membersihkan Rumah dan Halaman" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s15"
                 :options="options15"
-                name="radios-stacked"
+                name="s15"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="4. Membuang Tinja Bayi dan Balita" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s16"
                 :options="options16"
-                name="radios-stacked"
+                name="s16"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="5. Membuang Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s17"
                 :options="options17"
-                name="radios-stacked"
+                name="s17"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
      </tab-content>
      <tab-content title="Informasi Tambahan">
          <b-form-group label="Penanganan Sampah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s18"
                 :options="options18"
-                name="radios-stacked"
+                name="s18"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="Terdapat Jentik Nyamuk" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s19"
                 :options="options19"
-                name="radios-stacked"
+                name="s19"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="Jenis Jamban yang Digunakan" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s20"
                 :options="options20"
-                name="radios-stacked"
+                name="s20"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
         <b-form-group label="Jenis Sistem Pembuangan Air Limbah" label-class="font-weight-bold" label-size="lg">
             <b-form-radio-group
-                v-model="selected"
+                v-model="s21"
                 :options="options21"
-                name="radios-stacked"
+                name="s21"
                 stacked
+                required
             ></b-form-radio-group>
         </b-form-group><br>
      </tab-content>
@@ -183,9 +205,11 @@
 </template>
 
 <script>
+
   export default {
     data(){ return {
-        selected1: 0,
+        s1:0, s2:0, s3:0, s4:0, s5:0, s6:0, s7:0, s8:0, s9:0, s10:0, 
+        s11:0, s12:0, s13:0, s14:0, s15:0, s16:0, s17:0, s18:0, s19:0, s20:0, s21:0, selected: null,
         options1: [
           { text: 'Tidak ada', value: 0 },
           { text: 'Ada, kotor, sulit dibersihkan dan rawan kecelakaan', value: 31 },
@@ -294,13 +318,26 @@
           { text: 'Tertutup', value: '0' },
           { text: 'Terbuka', value: '1' }
         ],
+        total: null
     }},
     mounted: function (){
     },
     methods: {
+        
         onComplete: function(){
-          alert('Yay. Done!');
-        }
+          this.total = this.s1 + this.s2 + this.s3 + this.s4 + this.s5 + this.s6 + this.s7 
+          + this.s8 + this.s9 + this.s10 + this.s11 + this.s12 + this.s13 + this.s14 
+          + this.s15 + this.s16 + this.s17;
+
+          if (this.total < 1068)
+          alert("Rumah Tidak Layak Huni");
+          else
+          alert("Rumah Layak Huni")
+        },
+        onSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
     }
   }
 </script>
