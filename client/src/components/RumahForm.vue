@@ -1,6 +1,13 @@
 <template>
-  <form-wizard @on-complete="onComplete" color="#3498db">
+  <form-wizard @on-complete="onComplete" color="#3498db" style="width: 100%; padding-left: 20%; padding-right:20%">
       <h2 slot="title">Form Penilaian Rumah Layak Huni</h2>
+      <div>
+        <!-- <b-button slot="submit" v-b-modal.modal-center>Launch centered modal</b-button> -->
+        <b-modal id="modal-center" centered title="Form Penilaian Rumah Layak Huni" ref="status">
+            <p class="my-4">Nilai       : {{total}}</p>
+            <p class="my-4">Status Rumah: {{layak}}</p>
+        </b-modal>
+    </div>
      <tab-content title="Komponen Rumah">
         <b-form-group label="1. Langit - langit" label-class="font-weight-bold" label-size="lg"> 
             <b-form-radio-group
@@ -201,7 +208,6 @@
         </b-form-group><br>
      </tab-content>
  </form-wizard>
-
 </template>
 
 <script>
@@ -318,7 +324,8 @@
           { text: 'Tertutup', value: '0' },
           { text: 'Terbuka', value: '1' }
         ],
-        total: null
+        total: null,
+        layak: null
     }},
     mounted: function (){
     },
@@ -329,10 +336,14 @@
           + this.s8 + this.s9 + this.s10 + this.s11 + this.s12 + this.s13 + this.s14 
           + this.s15 + this.s16 + this.s17;
 
+            this.$refs['status'].show();
+
           if (this.total < 1068)
-          alert("Rumah Tidak Layak Huni");
+          this.layak = "Rumah Tidak Layak Huni";
+        //   alert("Rumah Tidak Layak Huni");
           else
-          alert("Rumah Layak Huni")
+          this.layak = "Rumah Layak Huni";
+        //   alert("Rumah Layak Huni")
         },
         onSubmit(evt) {
         evt.preventDefault()
