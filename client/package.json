@@ -10,7 +10,8 @@
   "dependencies": {
     "@icon/themify-icons": "^1.0.1-alpha.3",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "x5-gmaps": "^0.3.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

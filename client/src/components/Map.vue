@@ -1,19 +1,30 @@
 <template>
   <div id="about">
-  <button v-on:click="getPoly">Polygones</button>
-  <div id="map" ref="map">
+  <b-button 
+  v-b-toggle.sidebar-1 style="position:absolute;z-index: 10; left:10px; top: 20%;">Polygones</b-button>
+  <b-sidebar id="sidebar-1" title="Sidebar" shadow>
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+        <b-button v-on:click="getPoly">map</b-button>
+      </div>
+    </b-sidebar>
+  <div id="map" ref="map" style="z-index:0">
       <!-- <map-marker :lat="-27.344" :lng="133.036"></map-marker>
       <map-marker :lat="-26.344" :lng="132.036"></map-marker>
-      <map-marker :lat="-25.344" :lng="131.036"></map-marker> -->
+      <map-marker :lat="-25.344" :lng="131.036"></map-marker> v-on:click="getPoly" -->
   </div>
   </div>
 </template>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhwmRyn2gXpj8U4yCbmj8ZHSi3tYQJOiE">
 </script>
-<script type="text/javascript"
+<!--<script type="text/javascript"
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhwmRyn2gXpj8U4yCbmj8ZHSi3tYQJOiE&libraries=visualization">
-</script>
+</script> -->
 <script>
 import initPolygon from "./initPolygon.js";
 import gql from "graphql-tag";
@@ -57,7 +68,20 @@ export default {
       boundary: [],
       poly: null,
       polyData: initPolygon,
-      heatMapData: [],
+      heatMapData: [new google.maps.LatLng(37.782, -122.447),
+  new google.maps.LatLng(37.782, -122.445),
+  new google.maps.LatLng(37.782, -122.443),
+  new google.maps.LatLng(37.782, -122.441),
+  new google.maps.LatLng(37.782, -122.439),
+  new google.maps.LatLng(37.782, -122.437),
+  new google.maps.LatLng(37.782, -122.435),
+  new google.maps.LatLng(37.785, -122.447),
+  new google.maps.LatLng(37.785, -122.445),
+  new google.maps.LatLng(37.785, -122.443),
+  new google.maps.LatLng(37.785, -122.441),
+  new google.maps.LatLng(37.785, -122.439),
+  new google.maps.LatLng(37.785, -122.437),
+  new google.maps.LatLng(37.785, -122.435)],
       rumahs: []
   }),
   mounted(){
@@ -125,6 +149,11 @@ export default {
             position: {lat: -25.344, lng: 131.036},
             map: this.map
         });
+
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: this.heatmapData
+        });
+        heatmap.setMap(this.map);
           }
       }
   }
