@@ -116,10 +116,10 @@ var rumahType = new GraphQLObjectType({
         },
         kec: {
             type: new GraphQLList(rumahType),
-            
-            resolve: function () {
+            args: {kecamatan: {name: 'kecamatan',type: GraphQLString}},
+            resolve: function (root, params) {
               const kec = RumahModel.findAll({
-                where: {kecamatan: "Cimanggis"},
+                where: {kecamatan: params.kecamatan},
                 order: [
                   ['id', 'DESC']
                 ],

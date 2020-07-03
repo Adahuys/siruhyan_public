@@ -16,11 +16,14 @@ import IconsPlugin from 'bootstrap-vue'
 import RumahFormVue from './components/RumahForm.vue'
 import MapVue from './components/Map.vue'
 
+// import x5GMaps from 'x5-gmaps'
+
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueFormWizard)
+// Vue.use(x5GMaps, { key:'AIzaSyBhwmRyn2gXpj8U4yCbmj8ZHSi3tYQJOiE', libraries:['visualization']})
 
 const routes =[
   { path: '/form', components: RumahFormVue},
