@@ -12,6 +12,7 @@
         <b-button v-on:click="getPoly">map</b-button>
         <b-button v-on:click="setPolyKec">kecamatan</b-button>
         <b-button v-on:click="setPolyKel">kelurahan</b-button>
+        <b-button v-on:click="dataPrep">datas</b-button>
       </div>
     </b-sidebar>
   <div id="map" ref="map" style="z-index:0">
@@ -72,10 +73,13 @@ export default {
       rumahs: [],
       kecamatan: [],
       camatPolyInfo: [], lurahPolyInfo: [],
-      polykec: [], polykel: [],
+      polykec: [], polykel: [], 
       boundKec: [], boundKel: [],
       kecVisible: false, kelVisible: false,
-      kecReady: false, kelReady: false
+      kecReady: false, kelReady: false,
+      koorMark: [], koorSehat: [], koorTidak: [], 
+      jumlahSehat: null, jumlahTidak: null, kelSehat: [], kelTidak: [], kecSehat: [], kecTidak: [],
+      kelColor: [], kecColor:[]
   }),
   mounted(){
     //   this.map = new window.google.maps.Map(this.$refs["map"],{
@@ -161,48 +165,160 @@ export default {
           data: heatMapData
         });
         heatmap.setMap(this.map);
-        // var poly1 = data1;
-        // poly1.setVisible(false);
-        // const data1 = new window.google.maps.Data({geometry: new window.google.maps.Data.Polygon([this.polyData.kel1.data])});
-        // const data2 = new window.google.maps.Data({geometry: new window.google.maps.Data.Polygon([this.polyData.kel2.data])});
-        // this.map.data.add({geometry: new window.google.maps.Data.Polygon([this.boundary])})
-        // this.map.data.add(data1);
-        // this.map.data.setStyle({
-        //     data: data1,
-        //     fillColor:'green'
-        // })
-        // this.map.data.setStyle({
-        //     data: data2,
-        //     fillColor:'red'
-        // })
         
-
-        // var heatmap = new google.maps.visualization.HeatmapLayer({
-        //   data: this.heatmapData
-        // });
-        // heatmap.setMap(this.map);
         }
       },
-
+      kecFilter(kecparams){
+        var Idkec;
+        switch (kecparams) {
+          case "Beji": Idkec = 0; break;
+          case "Bojong Sari": Idkec = 1; break;
+          case "Cilodong": Idkec = 2; break;
+          case "Cimanggis": Idkec = 3; break;
+          case "Cinere": Idkec = 4; break;
+          case "Cipayung": Idkec = 5; break;
+          case "Limo": Idkec = 6; break;
+          case "Pancoran Mas": Idkec = 7; break;
+          case "Sawangan": Idkec = 8; break;
+          case "Sukmajaya": Idkec = 9; break;
+          case "Tapos": Idkec = 10; break;
+          default:
+            break;
+        }
+        return Idkec;
+      },
+      kelFilter(kelparams){
+        var Idkel;
+        switch (kelparams) {
+          case "Beji" : Idkel = 0; break;
+          case "Beji Timur" : Idkel = 1; break;
+          case "Kemiri Muka" : Idkel = 2; break;
+          case "Pondok Cina" : Idkel = 3; break;
+          case "Kukusan" : Idkel = 4; break;
+          case "Tanah Baru" : Idkel = 5; break;
+          case "Pancoran Mas" : Idkel = 6; break;
+          case "Depok" : Idkel = 7; break;
+          case "Depok Jaya" : Idkel = 8; break;
+          case "Rangkapan Jaya Baru" : Idkel = 9; break;
+          case "Mampang" : Idkel = 10; break;
+          case "Cipayung" : Idkel = 11; break;
+          case "Cipayung Jaya" : Idkel = 12; break;
+          case "Ratu Jaya" : Idkel = 13; break;
+          case "Pondok Jaya" : Idkel = 14; break;
+          case "Sukma Jaya" : Idkel = 15; break;
+          case "Mekar Jaya" : Idkel = 16; break;
+          case "Bakti Jaya" : Idkel = 17; break;
+          case "Abadi Jaya" : Idkel = 18; break;
+          case "Tirta Jaya" : Idkel = 19; break;
+          case "Cisalak" : Idkel = 20; break;
+          case "Cilodong" : Idkel = 21; break;
+          case "Sukamaju" : Idkel = 22; break;
+          case "Kalibaru" : Idkel = 23; break;
+          case "Kalimulya" : Idkel = 24; break;
+          case "Jatimulya" : Idkel = 25; break;
+          case "Limo" : Idkel = 26; break;
+          case "Meruyung" : Idkel = 27; break;
+          case "Grogol" : Idkel = 28; break;
+          case "Krukut" : Idkel = 29; break;
+          case "Cinere" : Idkel = 30; break;
+          case "Pangkalan Jati Baru" : Idkel = 31; break;
+          case "Pangkalan Jati" : Idkel = 32; break;
+          case "Gandul" : Idkel = 33; break;
+          case "Rangkapan Jaya" : Idkel = 34; break;
+          case "Cisalak Pasar" : Idkel = 35; break;
+          case "Mekar Sari" : Idkel = 36; break;
+          case "Pasir Gunung Selatan" : Idkel = 37; break;
+          case "Tugu" : Idkel = 38; break;
+          case "Harjamukti" : Idkel = 39; break;
+          case "Curug Bojong Sari" : Idkel = 40; break;
+          case "Tapos" : Idkel = 41; break;
+          case "Leuwinanggung" : Idkel = 42; break;
+          case "Sukatani" : Idkel = 43; break;
+          case "Sukamaju Baru" : Idkel = 44; break;
+          case "Jatijajar" : Idkel = 45; break;
+          case "Cilangkap" : Idkel = 46; break;
+          case "Cimpaeun" : Idkel = 47; break;
+          case "Sawangan" : Idkel = 48; break;
+          case "Kedaung" : Idkel = 49; break;
+          case "Cinangka" : Idkel = 50; break;
+          case "Sawangan Baru" : Idkel = 51; break;
+          case "Bedahan" : Idkel = 52; break;
+          case "Pengasinan" : Idkel = 53; break;
+          case "Pasir Putih" : Idkel = 54; break;
+          case "Bojongsari Baru" : Idkel = 55; break;
+          case "Bojongsari" : Idkel = 56; break;
+          case "Serua" : Idkel = 57; break;
+          case "Pondok Petir" : Idkel = 58; break;
+          case "Tugu Cimanggis" : Idkel = 59; break;
+          case "Duren Mekar" : Idkel = 60; break;
+          case "Duren Seribu" : Idkel = 61; break;
+          case "Bojong Pondok Terong" : Idkel = 62; break;
+          default: 
+            break;
+        }
+        return Idkel;
+      },
+      dataPrep: function(event){
+        var panjang = this.rumahs.length; // get array length
+        var warna;
+        for (var i=0;i<panjang;i++){ // loop for array
+          var koor = this.rumahs[i].kordinat.split(", "); // split coordinates string
+          var lats = parseFloat(koor[0]);
+          var lngs = parseFloat(koor[1]);
+          var idkelurahan; var idkecamatan;
+          this.koorMark[i] = new google.maps.Marker({ // create marker object
+            position: {lat: lats, lng: lngs}
+            // map: this.map
+          });
+          // this.koorMark[i].setMap(this.map);
+          if (this.rumahs[i].status == "True"){ // if rumah layak huni
+            this.koorSehat[i] = new google.maps.Marker({ // for layak huni heatmap
+              position: {lat: lats, lng: lngs}
+            });
+            this.jumlahSehat++; // total rumah sehat
+            idkecamatan = this.kecFilter(this.rumahs[i].kecamatan); // identifikasi kec/kel dari rumah
+            idkelurahan = this.kelFilter(this.rumahs[i].kelurahan);
+            this.kecSehat[idkecamatan]++; // tambah total sehat pada index array kec/kel
+            this.kelSehat[idkelurahan]++;
+          } else {
+            this.koorTidak[i] = new google.maps.Marker({
+              position: {lat: lats, lng: lngs}
+            });
+            this.jumlahTidak++;
+            idkecamatan = this.kecFilter(this.rumahs[i].kecamatan); // identifikasi kec/kel dari rumah
+            idkelurahan = this.kelFilter(this.rumahs[i].kelurahan);
+            this.kecTidak[idkecamatan]++; // tambah total sehat pada index array kec/kel
+            this.kelTidak[idkelurahan]++;
+          }
+        }
+        for (var i=0;i<63;i++){
+          this.kelColor[i] = Math.ceil(100*this.kelSehat[i]/(this.kelSehat[i]+this.kelTidak[i]));
+        }
+        console.log(panjang,"lalu",this.jumlahSehat,"dan",this.jumlahTidak);
+        console.log(this.kecSehat); console.log(this.kecTidak)
+        console.log(this.kelSehat); console.log(this.kelTidak)
+        console.log(this.kelColor);
+      },
       // POLYGON KECAMATAN
       setPolyKec:function(event){
+        var warna;
         // cek apakah polygon telah dibuat
         if (this.kecReady == false){
           // polygon dibuat, tandai
           this.kecReady = !this.kecReady;
           console.log("polygon is ready!");
           // isi data json batas wilayah
-          this.polykec[0] = this.polyData.kec1.data; // beji
-          this.polykec[1] = this.polyData.kec2.data; // bojongsari
-          this.polykec[2] = this.polyData.kec3.data; // cilodong
-          this.polykec[3] = this.polyData.kec4.data; // cimanggis
-          this.polykec[4] = this.polyData.kec5.data; // cinere
-          this.polykec[5] = this.polyData.kec6.data; // cipayung
-          this.polykec[6] = this.polyData.kec7.data; // limo
-          this.polykec[7] = this.polyData.kec8.data; // pancoran mas
-          this.polykec[8] = this.polyData.kec9.data; // sawangan
-          this.polykec[9] = this.polyData.kec10.data; // sukmajaya
-          this.polykec[10] = this.polyData.kec11.data; // tapos
+            this.polykec[0] = this.polyData.kec1.data; // beji
+            this.polykec[1] = this.polyData.kec2.data; // bojongsari
+            this.polykec[2] = this.polyData.kec3.data; // cilodong
+            this.polykec[3] = this.polyData.kec4.data; // cimanggis
+            this.polykec[4] = this.polyData.kec5.data; // cinere
+            this.polykec[5] = this.polyData.kec6.data; // cipayung
+            this.polykec[6] = this.polyData.kec7.data; // limo
+            this.polykec[7] = this.polyData.kec8.data; // pancoran mas
+            this.polykec[8] = this.polyData.kec9.data; // sawangan
+            this.polykec[9] = this.polyData.kec10.data; // sukmajaya
+            this.polykec[10] = this.polyData.kec11.data; // tapos
           // loop pembuatan objek polygon
           for (var i=0; i<11; i++){
             this.boundKec[i] = new google.maps.Polygon({
@@ -211,6 +327,8 @@ export default {
             })
             // meletakkan polygon pada peta
             this.boundKec[i].setMap(this.map);
+            this.kecSehat[i] = 0;
+            this.kecTidak[i] = 0;
           }
         } else {
           // polygon wilayah telah dibuat
@@ -223,8 +341,8 @@ export default {
           this.kecVisible = !this.kecVisible;
           console.log(this.kecVisible);
         }
+        console.log("SEHAT:",this.kecSehat);console.log("TIDAK:",this.kecTidak);
       },
-
       // POLYGON KELURAHAN
       setPolyKel:function(event){
         // cek apakah polygon telah dibuat
@@ -301,13 +419,17 @@ export default {
             this.boundKel[i] = new google.maps.Polygon({
               paths: this.polykel[i],
               fillColor: "red",
+              indexID: i,
               map: this.map
             })
             // meletakkan polygon pada peta
             this.boundKel[i].setMap(this.map);
+            this.kelSehat[i] = 0;
+            this.kelTidak[i]= 0;
             // buat infowindow
-            this.lurahPolyInfo[i] = new google.maps.InfoWindow({content: "info"});
-            this.boundKel[i].addListener('click',function(){this.lurahPolyInfo[i].open(this.map, this.boundKel[i])});
+            // this.lurahPolyInfo[i] = new google.maps.InfoWindow({content: "info", position: {lat: -6.3857178, lng: 106.8119226}});
+            // (function (i) {google.maps.event.addListener(this.boundKel[i], 'click', function () {console.log("klik")});})(i);
+            // this.boundKel[i].addListener('click',function(){console.log("klik")});
           }
         } else {
           // polygon wilayah telah dibuat
@@ -320,6 +442,7 @@ export default {
           this.kelVisible = !this.kelVisible;
           console.log(this.kelVisible);
         }
+        console.log("SEHAT:",this.kelSehat);console.log("TIDAK:",this.kelTidak);
       }
   }
 }
