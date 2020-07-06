@@ -261,6 +261,14 @@ export default {
       dataPrep: function(event){
         var panjang = this.rumahs.length; // get array length
         var warna;
+        for (var i=0;i<63;i++){
+          this.kelSehat[i] = 0;
+          this.kelTidak[i] = 0;
+        };
+        for (var i=0;i<11;i++){
+          this.kecSehat[i]= 0;
+          this.kecTidak[i]= 0;
+        }
         for (var i=0;i<panjang;i++){ // loop for array
           var koor = this.rumahs[i].kordinat.split(", "); // split coordinates string
           var lats = parseFloat(koor[0]);
@@ -291,13 +299,51 @@ export default {
             this.kelTidak[idkelurahan]++;
           }
         }
+        // warna polygon kelurahan
         for (var i=0;i<63;i++){
-          this.kelColor[i] = Math.ceil(100*this.kelSehat[i]/(this.kelSehat[i]+this.kelTidak[i]));
+          var temp = Math.ceil(100*this.kelSehat[i]/(this.kelSehat[i]+this.kelTidak[i]));
+          var cek = isNaN(temp);
+          var warna;
+          if (cek == true){temp = -1}
+          if (temp == -1){warna = "grey"} else
+          if (temp == 0){warna = "#ff6600"} else
+          if (temp > 0 && temp <= 10){warna = "#ff6600"} else
+          if (temp > 0 && temp <= 20){warna = "#f0750a"} else
+          if (temp > 0 && temp <= 30){warna = "#e08514"} else
+          if (temp > 0 && temp <= 40){warna = "#d1941f"} else
+          if (temp > 0 && temp <= 50){warna = "#c2a329"} else
+          if (temp > 0 && temp <= 60){warna = "#b2b233"} else
+          if (temp > 0 && temp <= 70){warna = "#a3c23d"} else
+          if (temp > 0 && temp <= 80){warna = "#94d147"} else
+          if (temp > 0 && temp <= 90){warna = "#85e052"} else
+          if (temp > 0 && temp <= 99){warna = "#75f05c"} else
+          {warna = "#66ff66"}
+          this.kelColor[i] = warna;
+        }
+        for (var i=0;i<11;i++){
+          var temp = Math.ceil(100*this.kecSehat[i]/(this.kecSehat[i]+this.kecTidak[i]));
+          var cek = isNaN(temp);
+          var warna;
+          if (cek == true){temp = -1}
+          if (temp == -1){warna = "grey"} else
+          if (temp == 0){warna = "#ff6600"} else
+          if (temp > 0 && temp <= 10){warna = "#ff6600"} else
+          if (temp > 0 && temp <= 20){warna = "#f0750a"} else
+          if (temp > 0 && temp <= 30){warna = "#e08514"} else
+          if (temp > 0 && temp <= 40){warna = "#d1941f"} else
+          if (temp > 0 && temp <= 50){warna = "#c2a329"} else
+          if (temp > 0 && temp <= 60){warna = "#b2b233"} else
+          if (temp > 0 && temp <= 70){warna = "#a3c23d"} else
+          if (temp > 0 && temp <= 80){warna = "#94d147"} else
+          if (temp > 0 && temp <= 90){warna = "#85e052"} else
+          if (temp > 0 && temp <= 99){warna = "#75f05c"} else
+          {warna = "#66ff66"}
+          this.kecColor[i] = warna;
         }
         console.log(panjang,"lalu",this.jumlahSehat,"dan",this.jumlahTidak);
         console.log(this.kecSehat); console.log(this.kecTidak)
         console.log(this.kelSehat); console.log(this.kelTidak)
-        console.log(this.kelColor);
+        console.log(this.kecColor);
       },
       // POLYGON KECAMATAN
       setPolyKec:function(event){
@@ -323,12 +369,10 @@ export default {
           for (var i=0; i<11; i++){
             this.boundKec[i] = new google.maps.Polygon({
               paths: this.polykec[i],
-              fillColor: "green"
+              fillColor: this.kecColor[i]
             })
             // meletakkan polygon pada peta
             this.boundKec[i].setMap(this.map);
-            this.kecSehat[i] = 0;
-            this.kecTidak[i] = 0;
           }
         } else {
           // polygon wilayah telah dibuat
@@ -348,7 +392,7 @@ export default {
         // cek apakah polygon telah dibuat
         if (this.kelReady == false){
           // polygon dibuat, tandai
-          this.kelReady = !this.kecReady;
+          this.kelReady = !this.kelReady;
           console.log("polygon is ready!");
           // isi data json batas wilayah
             this.polykel[0] = this.polyData.kel1.data; // beji
@@ -418,14 +462,11 @@ export default {
           for (var i=0; i<63; i++){
             this.boundKel[i] = new google.maps.Polygon({
               paths: this.polykel[i],
-              fillColor: "red",
-              indexID: i,
-              map: this.map
+              fillColor: this.kelColor[i],
+              indexID: i
             })
             // meletakkan polygon pada peta
             this.boundKel[i].setMap(this.map);
-            this.kelSehat[i] = 0;
-            this.kelTidak[i]= 0;
             // buat infowindow
             // this.lurahPolyInfo[i] = new google.maps.InfoWindow({content: "info", position: {lat: -6.3857178, lng: 106.8119226}});
             // (function (i) {google.maps.event.addListener(this.boundKel[i], 'click', function () {console.log("klik")});})(i);
