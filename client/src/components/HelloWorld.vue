@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <b-nav>
+    <b-navbar variant="dark">
       <b-nav-item><router-link v-bind:to="'/'">Home</router-link></b-nav-item>
       <b-nav-item><router-link v-bind:to="'/form'">Form</router-link></b-nav-item>
       <b-nav-item><router-link v-bind:to="'/map'">Map</router-link></b-nav-item>
-    </b-nav>
-    <br>
+    </b-navbar>
+    
     <router-view></router-view>
     <!-- <h1>{{ msg }}</h1>
     <p>

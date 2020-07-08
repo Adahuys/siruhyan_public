@@ -1,18 +1,30 @@
 <template>
   <div id="about">
   <b-button 
-  v-b-toggle.sidebar-1 style="position:absolute;z-index: 10; left:10px; top: 20%;">Polygones</b-button>
+  v-b-toggle.sidebar-1 style="position:absolute;z-index: 10; left:10px; top: 17%;">Menu</b-button>
   <b-sidebar id="sidebar-1" title="Sidebar" shadow>
       <div class="px-3 py-2">
-        <p>
+        <!-- <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
           in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
         </p>
-        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img> -->
         <b-button v-on:click="getPoly">map</b-button>
         <b-button v-on:click="setPolyKec">kecamatan</b-button>
         <b-button v-on:click="setPolyKel">kelurahan</b-button>
         <b-button v-on:click="dataPrep">datas</b-button>
+        <b-button v-on:click="heatmaps">heatmap</b-button>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-1 variant="info">Accordion 1</b-button>
+          </b-card-header>
+          <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+            <b-card-body>
+              <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+              <b-card-text>{{ text }}</b-card-text>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
       </div>
     </b-sidebar>
   <div id="map" ref="map" style="z-index:0">
@@ -79,7 +91,8 @@ export default {
       kecReady: false, kelReady: false,
       koorMark: [], koorSehat: [], koorTidak: [], 
       jumlahSehat: null, jumlahTidak: null, kelSehat: [], kelTidak: [], kecSehat: [], kecTidak: [],
-      kelColor: [], kecColor:[]
+      kelColor: [], kecColor:[],
+      heatmapSehat: [], heatmapTidak: [], heatmapAll: []
   }),
   mounted(){
     //   this.map = new window.google.maps.Map(this.$refs["map"],{
@@ -91,6 +104,10 @@ export default {
     //       map: this.map
     //   });
     //   this.boundary = this.polyData.kel1.data;
+    this.map = new window.google.maps.Map(this.$refs["map"],{ 
+            center: {lat: -6.3857178, lng: 106.8119226},
+            zoom: 12
+        });
     console.log(this.polyData);
   },
   methods: {
@@ -111,6 +128,11 @@ export default {
             var koor = this.rumahs[400].kordinat.split(", ");
             console.log(koor);
 
+            var panjang = this.koorMark.length;
+            for (var i=0;i<panjang;i++){
+              this.koorMark[i].setMap(this.map);
+            }
+
         //     this.poly = new google.maps.Polygon({
         //     paths: this.boundary,
         //     strokeColor: "#000000",
@@ -121,10 +143,10 @@ export default {
         //     map: this.map
         //   });
         //   this.poly.setVisible(true);
-        this.map = new window.google.maps.Map(this.$refs["map"],{ 
-            center: {lat: -6.3857178, lng: 106.8119226},
-            zoom: 12
-        });
+        // this.map = new window.google.maps.Map(this.$refs["map"],{ 
+        //     center: {lat: -6.3857178, lng: 106.8119226},
+        //     zoom: 12
+        // });
         
         var data1 = new window.google.maps.Polygon({
             paths: this.polyData.kel1.data,
@@ -258,6 +280,12 @@ export default {
         }
         return Idkel;
       },
+      heatmaps: function(event){
+        var heats = new google.maps.visualization.HeatmapLayer({data: this.heatmapAll,maxIntensity:1000, radius: 20});
+        // heats.set("radius", heats.get("radius") ? null : 20);
+        heats.setMap(this.map);
+        console.log(this.heatmapAll.length);
+      },
       dataPrep: function(event){
         var panjang = this.rumahs.length; // get array length
         var warna;
@@ -278,6 +306,7 @@ export default {
             position: {lat: lats, lng: lngs}
             // map: this.map
           });
+          this.heatmapAll[i] = {location: new google.maps.LatLng(lats,lngs)};
           // this.koorMark[i].setMap(this.map);
           if (this.rumahs[i].status == "True"){ // if rumah layak huni
             this.koorSehat[i] = new google.maps.Marker({ // for layak huni heatmap
@@ -288,6 +317,7 @@ export default {
             idkelurahan = this.kelFilter(this.rumahs[i].kelurahan);
             this.kecSehat[idkecamatan]++; // tambah total sehat pada index array kec/kel
             this.kelSehat[idkelurahan]++;
+            this.heatmapSehat[i] = {location: new google.maps.LatLng(lats,lngs), weight: 3};
           } else {
             this.koorTidak[i] = new google.maps.Marker({
               position: {lat: lats, lng: lngs}
